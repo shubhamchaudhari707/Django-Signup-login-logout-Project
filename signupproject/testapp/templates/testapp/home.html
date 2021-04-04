@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: blue;
+            color: red;
+            border: 2px solid black;
+        }
+
+        a {
+            text-decoration: none;
+            color: red;
+        }
+
+        .msg {
+            color: rgb(11, 255, 31);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Home page</h1>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet, fugit neque! Consequuntur repellendus
+        veritatis ut distinctio. Suscipit consequatur laborum pariatur rem impedit praesentium quibusdam iure delectus
+        incidunt ipsa eaque deleniti error explicabo, modi accusantium ducimus cupiditate provident vero rerum aperiam
+        maiores obcaecati. Praesentium fugit accusantium esse? Nam tempora aliquid in culpa, blanditiis id, sapiente
+        quas natus dignissimos qui animi mollitia.</p>
+
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error quaerat, consequatur, animi explicabo itaque iste
+        unde minima veniam excepturi, non quod repellendus suscipit eaque velit ratione? Repellat qui sed accusamus
+        tenetur quasi tempora doloremque voluptas, laborum dolorum eos facilis veritatis ipsa omnis obcaecati id nulla
+        voluptatibus quaerat deserunt praesentium reiciendis nobis officia veniam perspiciatis. Aliquid rerum totam
+        dolores voluptatem rem.</p>
+
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti modi totam ipsum itaque incidunt voluptate
+        nobis sed quisquam eveniet sapiente vero sequi repudiandae harum iusto eligendi vel amet velit voluptas
+        consequuntur odio, possimus provident explicabo! Ad itaque sequi explicabo sapiente perspiciatis, dolorum in
+        consequatur veniam fugiat magnam, modi sit vitae dolores? Non officia dolor, in illo itaque cupiditate obcaecati
+        blanditiis?</p>
+
+    <br>
+
+    {% if user.is_authenticated %}
+    <p style="color: rgb(11, 255, 31); text-decoration: none;"> Hello , {{user.first_name}}</p>
+    <a href="{% url 'logout' %}">Logout</a>
+
+    {% else %}
+    <a href="{% url 'login' %}">login</a>
+    <a href="{% url 'signup' %}">Signup</a>
+
+    {% endif %}
+
+    <br> <br>
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <p>{{error}}</p>
+        {% endfor %}
+        {% endif %}
+
+        {% for fm in form %}
+        {{fm.label_tag}}
+        {{fm}}
+        {{fm.errors|striptags}} <br> <br>
+        {% endfor %}
+        <input type="submit" value="save">
+
+        <div>
+            {% for message in messages %}
+            <h3 class="msg">{{message}}</h3>
+            {% endfor %}
+        </div>
+    </form>
+</body>
+
+</html>
